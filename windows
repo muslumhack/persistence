@@ -1,0 +1,1 @@
+schtasks /create /ru SYSTEM /sc MINUTE /MO 1/rn <ismi> /tr "\"C:\\Users\\Default\\AppData\\local\\temp\\<payloadadi>\""
